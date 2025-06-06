@@ -1,13 +1,16 @@
 import { Link } from "react-router";
 
 const LandingPage = function () {
-  return (
-    <div>
-      <h1>Landing Page</h1>
+	return (
+		<div>
+			<h1>Landing Page</h1>
 
-      <Link to="/profile">Profile</Link>
-    </div>
-  );
+			<a href="/profile">Html A tag</a>
+			<br />
+			<br />
+			<Link to="/profile">Profile React router Link</Link>
+		</div>
+	);
 };
 
 export default LandingPage;
