@@ -18,7 +18,7 @@ const Auth = () => {
                     <Button
                         className="bg-transparent px-4 py-2 border-0 border-transparent"
                         type="link"
-                        to="/landingpage"
+                        to="/"
                     >
                         <ArrowLeft />
                         Back
