@@ -11,8 +11,11 @@ import { useEffect, useState } from "react";
 
 const App = function () {
     const [user, setUser] = useState({});
+    const [userIsLoading, setUserIsLoading] = useState(false);
+
     useEffect(() => {
         try {
+            setUserIsLoading(true);
             const storedUser = localStorage.getItem("user");
 
             // If no "users" key exists, initialize it as an empty object
@@ -28,6 +31,8 @@ const App = function () {
             console.error("Something went wrong with localStorage:", error);
             localStorage.setItem("users", JSON.stringify({}));
             setUser({});
+        } finally {
+            setUserIsLoading(false);
         }
     }, []);
 
@@ -36,7 +41,12 @@ const App = function () {
             <ToastContainer />
             <Routes>
                 <Route path="/" element={<LandingPage user={user} />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <Dashboard user={user} userIsLoading={userIsLoading} />
+                    }
+                />
 
                 <Route path="/auth" element={<Auth />}>
                     <Route path="" element={<Navigate to="login" />} />
