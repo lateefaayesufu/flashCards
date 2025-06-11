@@ -1,7 +1,34 @@
-import { Brain } from "lucide-react";
-import { Link } from "react-router";
-const Login = () => {
-    const handleSubmit = () => {};
+import { Brain, LoaderCircle } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
+const Login = ({ user }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        setIsLoading(true);
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const obj = {};
+        for (const [key, value] of formData) {
+            obj[key] = value;
+        }
+
+        setTimeout(() => {
+            if (user.email === obj.email && user.password === obj.password) {
+                toast.success("Logged in successfully");
+                setIsLoading(false);
+                navigate("/dashboard");
+                return;
+            }
+
+            setIsLoading(false);
+            toast.error("Incorrect email or password");
+        }, 2000);
+    };
 
     return (
         <div className="flex-grow flex flex-col items-center justify-center w-full px-4">
@@ -36,6 +63,7 @@ const Login = () => {
                                 type="email"
                                 id="email"
                                 name="email"
+                                disabled={isLoading}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                 placeholder="student@university.edu"
@@ -53,6 +81,7 @@ const Login = () => {
                                 type="password"
                                 id="password"
                                 name="password"
+                                disabled={isLoading}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             />
@@ -60,8 +89,12 @@ const Login = () => {
                         <button
                             type="link"
                             to="/dashboard"
-                            className="w-full bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white py-3 px-5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
+                            disabled={isLoading}
+                            className="disabled:opacity-40 flex items-center justify-center gap-3 disabled:cursor-not-allowed  w-full bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white py-3 px-5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
                         >
+                            {isLoading && (
+                                <LoaderCircle className="animate-spin" />
+                            )}
                             Sign in
                         </button>
                     </form>
