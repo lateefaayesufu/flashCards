@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import GenerateFlashCards from "./pages/GenerateFlashCards";
 import Tasks from "./pages/Tasks";
 import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
 
 const App = function () {
     return (
@@ -18,7 +19,7 @@ const App = function () {
 
                     <Route path="login" element={<Login />} />
                     {/* make this a signup route */}
-                    <Route path="signup" element={<div>Hello signup</div>} />
+                    <Route path="signup" element={<Signup />} />
                 </Route>
 
                 <Route path="/generate" element={<GenerateFlashCards />} />

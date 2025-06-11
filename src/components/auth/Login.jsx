@@ -1,4 +1,5 @@
 import { Brain } from "lucide-react";
+import { Link } from "react-router";
 const Login = () => {
     const handleSubmit = () => {};
 
@@ -65,12 +66,12 @@ const Login = () => {
                         </button>
                     </form>
                     <div className="py-4">
-                        <a
-                            href="#"
+                        <Link
+                            to="/auth/signup"
                             className="text-[#52357B] hover:text-[#5459AC]"
                         >
                             Don't have an account? Sign up
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
