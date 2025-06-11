@@ -1,7 +1,32 @@
 import { Brain } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
-const Signup = function () {
-    const handleSubmit = () => {};
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+const Signup = function ({ handleSetUser }) {
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = (e) => {
+        setIsLoading(true);
+        e.preventDefault();
+        console.log(e);
+        const formData = new FormData(e.target);
+
+        const userObject = {};
+        for (const [key, value] of formData) {
+            userObject[key] = value;
+        }
+        localStorage.setItem("user", JSON.stringify(userObject));
+        handleSetUser(userObject);
+
+        setTimeout(() => {
+            setIsLoading(false);
+
+            navigate("/dashboard");
+            toast.success("Account Created");
+        }, 2000);
+    };
 
     return (
         <div className="flex-grow flex flex-col items-center justify-center w-full px-4">
@@ -36,6 +61,8 @@ const Signup = function () {
                                 type="text"
                                 id="name"
                                 required
+                                name=" name"
+                                disabled={isLoading}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                 placeholder="Name"
                             />
@@ -53,6 +80,7 @@ const Signup = function () {
                                 id="email"
                                 name="email"
                                 required
+                                disabled={isLoading}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                 placeholder="student@university.edu"
                             />
@@ -69,14 +97,15 @@ const Signup = function () {
                                 type="password"
                                 id="password"
                                 name="password"
+                                disabled={isLoading}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             />
                         </div>
                         <button
-                            type="link"
-                            to="/dashboard"
-                            className="w-full bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white py-3 px-5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
+                            type="submit"
+                            disabled={isLoading}
+                            className="disabled:opacity-30 disabled:cursor-not-allowed  w-full bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white py-3 px-5 rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
                         >
                             Create Account
                         </button>
