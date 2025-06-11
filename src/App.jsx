@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import GenerateFlashCards from "./pages/GenerateFlashCards";
 import Tasks from "./pages/Tasks";
+import Login from "./components/auth/Login";
 
 const App = function () {
     return (
@@ -11,7 +12,15 @@ const App = function () {
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/auth" element={<Auth />} />
+
+                <Route path="/auth" element={<Auth />}>
+                    <Route path="" element={<Navigate to="login" />} />
+
+                    <Route path="login" element={<Login />} />
+                    {/* make this a signup route */}
+                    <Route path="signup" element={<div>Hello signup</div>} />
+                </Route>
+
                 <Route path="/generate" element={<GenerateFlashCards />} />
                 <Route path="/tasks" element={<Tasks />} />
             </Routes>
