@@ -1,40 +1,41 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
-import { Delete, TimerIcon, Trash, Trophy } from "lucide-react";
-import { BookOpen } from "lucide-react";
-import { Calendar } from "lucide-react";
-import { Plus } from "lucide-react";
-import { Upload } from "lucide-react";
-import { Target } from "lucide-react";
+import {
+    Delete,
+    TimerIcon,
+    Trash,
+    Trophy,
+    BookOpen,
+    Calendar,
+    Plus,
+    Upload,
+    Target,
+    File,
+} from "lucide-react";
 import { Link } from "react-router";
-import { File } from "lucide-react";
+import Pomodoro from "../components/Pomodoro";
 
 const Dashboard = ({ user, userIsLoading }) => {
-    console.log(userIsLoading);
     const navigate = useNavigate();
-    console.log(user);
+    const [showPomodoro, setShowPomodoro] = useState(false);
 
-    const navigateAway = function () {
+    const navigateAway = () => {
         navigate("/");
         toast.error("login to access this page");
     };
 
-    if (userIsLoading) {
-        return <div>Loading</div>;
-    }
-
-    if (!user.name) {
-        navigateAway();
-    }
+    if (userIsLoading) return <div>Loading</div>;
+    if (!user.name) navigateAway();
 
     return (
-        <div className="bg-indigo-100">
+        <div className="bg-indigo-100 min-h-screen">
             <Navbar type="secondary" />
 
             <div className="max-w-[90vw] mx-auto flex items-center flex-col justify-center gap-10">
-                <div className="flex flex-col sm:flex-row justify-between   w-full items-start sm:items-center gap-4 mb-8">
+                <div className="flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 mb-8">
                     <div>
                         <h1 className="text-3xl font-bold mb-2">
                             Welcome {user.name?.split(" ")[0].toUpperCase()}👋🏾
@@ -45,61 +46,40 @@ const Dashboard = ({ user, userIsLoading }) => {
                     </div>
                 </div>
 
+                {/* Stat Cards */}
                 <div className="flex gap-8 w-full">
-                    <div className="basis-1/4 rounded-[7px] shadow-md px-3 py-0 h-[6.5rem] bg-white flex ">
-                        <div className="bg-blue-300 text-center px-2 py-2 rounded-[5px] my-auto">
-                            <BookOpen className="text-white" />
-                        </div>
-                        <div className="block justify-center">
-                            <p className="px-2 py-2 m-5 font-bold text-[30px]">
-                                0
-                                <p className="font-extralight text-[16px] text-gray-500">
-                                    Decks
+                    {[
+                        ["Decks", 0, BookOpen, "bg-blue-300"],
+                        ["Day streak", 0, Calendar, "bg-green-300"],
+                        ["Experience", 0, null, "bg-yellow-200"],
+                        ["Badges", 1, Trophy, "bg-blue-200"],
+                    ].map(([label, value, Icon, bg], i) => (
+                        <div
+                            key={i}
+                            className="basis-1/4 rounded-[7px] shadow-md px-3 h-[6.5rem] bg-white flex"
+                        >
+                            <div
+                                className={`${bg} text-center px-2 py-2 rounded-[5px] my-auto`}
+                            >
+                                {Icon ? (
+                                    <Icon className="text-white" />
+                                ) : (
+                                    <p className="text-white font-bold">XP</p>
+                                )}
+                            </div>
+                            <div className="block justify-center">
+                                <p className="px-2 py-2 m-5 font-bold text-[30px]">
+                                    {value}
+                                    <p className="font-extralight text-[16px] text-gray-500">
+                                        {label}
+                                    </p>
                                 </p>
-                            </p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="basis-1/4 rounded-[7px] shadow-md px-3 py-0 h-[6.5rem] bg-white flex ">
-                        <div className="bg-green-300 text-center px-2 py-2 rounded-[5px] my-auto">
-                            <Calendar className="text-white" />
-                        </div>
-                        <div className="block justify-center">
-                            <p className="px-2 py-2 m-5 font-bold text-[30px]">
-                                0
-                                <p className="font-extralight text-[16px] text-gray-500">
-                                    Day streak
-                                </p>
-                            </p>
-                        </div>
-                    </div>
-                    <div className="basis-1/4 rounded-[7px] shadow-md px-3 py-0 h-[6.5rem] bg-white flex ">
-                        <div className="bg-yellow-200 text-center px-2 py-2 rounded-[5px] my-auto">
-                            <p className="text-white font-bold">XP</p>
-                        </div>
-                        <div className="block justify-center">
-                            <p className="px-2 py-2 m-5 font-bold text-[30px]">
-                                0
-                                <p className="font-extralight text-[16px] text-gray-500">
-                                    Experience
-                                </p>
-                            </p>
-                        </div>
-                    </div>
-                    <div className="basis-1/4 rounded-[7px] shadow-md px-3 py-0 h-[6.5rem] bg-white flex  ">
-                        <div className="bg-blue-200 text-center px-2 py-2 rounded-[5px] my-auto">
-                            <Trophy className="text-white" />
-                        </div>
-                        <div className="block justify-center">
-                            <p className="px-2 py-2 m-5 font-bold text-[30px]">
-                                1
-                                <p className="font-extralight text-[16px] text-gray-500">
-                                    Badges
-                                </p>
-                            </p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
+                {/* Buttons */}
                 <div className="flex w-full gap-5">
                     <Button type="button" className="rounded-[5px]">
                         <Plus className="text-white" />
@@ -119,50 +99,71 @@ const Dashboard = ({ user, userIsLoading }) => {
                     </Button>
                 </div>
             </div>
-            <div className="flex gap-3 w-[100%] justify-center p-[20px]">
+
+            {/* Search Bar */}
+            <div className="flex gap-3 w-full justify-center p-5">
                 <input
                     type="text"
                     placeholder="🔍Search decks..."
-                    className="flex w-[98%] border-1 border-gray-400 py-[5px] px-[5px] rounded-[7px]"
+                    className="w-[98%] border border-gray-400 py-2 px-3 rounded-[7px]"
                 />
-                <button
-                    type="link"
-                    className="bg-black text-white px[5px] py-[3px] w-13 rounded-[20px] hover:cursor-pointer hover:bg-gray-600"
-                >
+                <button className="bg-black text-white px-3 py-1 rounded-[20px] hover:bg-gray-600">
                     All
                 </button>
             </div>
 
-            <div className="px-[15px] w-[100%]">
-                <div className="bg-white h-[55vh] w-[100%] p-[10px] rounded-[10px] flex justify-center">
-                    <div className="w-[20rem] align-middle text-center">
+            {/* Empty State */}
+            <div className="px-4 w-full">
+                <div className="bg-white h-[55vh] w-full p-4 rounded-[10px] flex justify-center">
+                    <div className="w-[20rem] text-center">
                         <BookOpen
                             size={65}
-                            className="text-gray-400 align-middle justify-center flex items-center m-auto mt-10"
+                            className="text-gray-400 mx-auto mt-10"
                         />
                         <h2 className="font-medium text-[20px] mt-4">
                             No decks yet
                         </h2>
-                        <div className="whitespace-nowrap text-center mt-2 text-[18px] text-gray-500 m-auto flex justify-center items-center">
+                        <p className="text-gray-500 mt-2 whitespace-nowrap m-auto flex items-center justify-center text-[18px]">
                             Create your first deck by uploading a PDF or
                             entering text
-                        </div>
-                        <Link className="cursor-pointer text bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white px-12 py-2 rounded-xl flex items-center gap-3 hover:opacity-80 mt-5">
-                            <div>
-                                <Plus />
-                            </div>
-
-                            <div>Create your First Deck</div>
+                        </p>
+                        <Link className="cursor-pointer bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white px-12 py-2 rounded-xl flex items-center gap-3 justify-center mt-5 hover:opacity-80">
+                            <Plus />
+                            Create your First Deck
                         </Link>
                     </div>
                 </div>
             </div>
 
-            <div className="relative w-full h-10 bg-transparent-100">
-                <div className="absolute right-0 top-[-50px] rounded-full w-13 h-13 bg-gradient-to-r from-[#52357B] to-[#5459AC] flex items-center justify-center">
+            {/* Pomodoro Icon Button */}
+            <div className="relative w-full h-10">
+                <button
+                    onClick={() => setShowPomodoro(true)}
+                    className="absolute right-0 top-[-50px] rounded-full w-16 h-16 bg-gradient-to-r from-[#52357B] to-[#5459AC] flex items-center justify-center hover:opacity-90 transition"
+                >
                     <TimerIcon className="text-white w-6 h-6" />
-                </div>
+                </button>
             </div>
+
+            {/* Pomodoro Modal */}
+            {showPomodoro && (
+                <div className="fixed bottom-6 right-6 z-50 bg-white rounded-2xl shadow-xl px-5 py-4 w-72 border border-gray-200">
+                    <div className="flex justify-between items-center mb-3">
+                        <p className="font-semibold text-gray-700 text-lg">
+                            🕒 Focus Timer
+                        </p>
+                        <button
+                            onClick={() => setShowPomodoro(false)}
+                            className="text-gray-400 hover:text-red-500 text-sm font-bold"
+                            aria-label="Close timer"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <Pomodoro />
+                </div>
+            )}
+
             <br />
             <br />
             <br />
