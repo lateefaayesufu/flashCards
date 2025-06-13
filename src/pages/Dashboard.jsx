@@ -2,12 +2,13 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
-import { Delete, Trash, Trophy } from "lucide-react";
+import { Delete, TimerIcon, Trash, Trophy } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import { Calendar } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Upload } from "lucide-react";
 import { Target } from "lucide-react";
+import { Link } from "react-router";
 import { File } from "lucide-react";
 
 const Dashboard = ({ user, userIsLoading }) => {
@@ -29,7 +30,7 @@ const Dashboard = ({ user, userIsLoading }) => {
     }
 
     return (
-        <div className="bg-[#f7f5f8]">
+        <div className="bg-indigo-100">
             <Navbar type="secondary" />
 
             <div className="max-w-[90vw] mx-auto flex items-center flex-col justify-center gap-10">
@@ -122,7 +123,7 @@ const Dashboard = ({ user, userIsLoading }) => {
                 <input
                     type="text"
                     placeholder="🔍Search decks..."
-                    className="flex w-[98%] border-2 border-gray-200 py-[5px] px-[5px] rounded-[7px]"
+                    className="flex w-[98%] border-1 border-gray-400 py-[5px] px-[5px] rounded-[7px]"
                 />
                 <button
                     type="link"
@@ -132,21 +133,39 @@ const Dashboard = ({ user, userIsLoading }) => {
                 </button>
             </div>
 
-            <div className="px-[15px]">
-                <div className="bg-white h-[50vh] w-[100%] p-[10px] rounded-[10px] flex justify-center">
+            <div className="px-[15px] w-[100%]">
+                <div className="bg-white h-[55vh] w-[100%] p-[10px] rounded-[10px] flex justify-center">
                     <div className="w-[20rem] align-middle text-center">
-                        <BookOpen size={70} className="text-gray-300 align-middle justify-center" />
-                        <h2>No decks yet</h2>
-                        <p>
+                        <BookOpen
+                            size={65}
+                            className="text-gray-400 align-middle justify-center flex items-center m-auto mt-10"
+                        />
+                        <h2 className="font-medium text-[20px] mt-4">
+                            No decks yet
+                        </h2>
+                        <div className="whitespace-nowrap text-center mt-2 text-[18px] text-gray-500 m-auto flex justify-center items-center">
                             Create your first deck by uploading a PDF or
                             entering text
-                        </p>
-                        <Button type="link" className="w-[15rem] px-2 py-2 align-middle justify-center rounded-[20px]">
-                           <Plus/> Create Your First Deck
-                        </Button>
+                        </div>
+                        <Link className="cursor-pointer text bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white px-12 py-2 rounded-xl flex items-center gap-3 hover:opacity-80 mt-5">
+                            <div>
+                                <Plus />
+                            </div>
+
+                            <div>Create your First Deck</div>
+                        </Link>
                     </div>
                 </div>
             </div>
+
+            <div className="relative w-full h-10 bg-transparent-100">
+                <div className="absolute right-0 top-[-50px] rounded-full w-13 h-13 bg-gradient-to-r from-[#52357B] to-[#5459AC] flex items-center justify-center">
+                    <TimerIcon className="text-white w-6 h-6" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
         </div>
     );
 };
