@@ -1,5 +1,9 @@
 import { Moon } from "lucide-react";
 import Button from "./Button";
+import { Home } from "lucide-react";
+import { Target } from "lucide-react";
+import { BarChart3 } from "lucide-react";
+
 const Navbar = function ({ type = "primary" }) {
     return (
         <nav className="flex items-center justify-between w-full  px-4 py-6">
@@ -9,9 +13,9 @@ const Navbar = function ({ type = "primary" }) {
 
             {type === "secondary" && (
                 <div className="flex gap-10">
-                    <Button type="link">Dashboard</Button>
-                    <Button type="link">Tasks</Button>
-                    <Button type="link">Stats</Button>
+                    <Button type="link"><Home className="w-3.5"/>Dashboard</Button>
+                    <Button type="link"><Target className="w-[15px]"/>Tasks</Button>
+                    <Button type="link"><BarChart3 className="w-4"/>Stats</Button>
                 </div>
             )}
             <div className="flex items-center gap-5">
