@@ -7,6 +7,7 @@ import { TrophyIcon } from "lucide-react";
 import { TimerIcon } from "lucide-react";
 import { Users } from "lucide-react";
 import { Star } from "lucide-react";
+import { Link } from "react-router";
 
 const LandingPage = function () {
     return (
@@ -25,12 +26,16 @@ const LandingPage = function () {
                     Pomodoro timers and gamified progress tracking.
                 </p>
                 <div className="flex gap-5">
-                    <Button type="button">
+                    <Link
+                        to="/dashboard"
+                        className="cursor-pointer text bg-gradient-to-r from-[#52357B] to-[#5459AC] text-white px-12 py-2 rounded-3xl flex items-center gap-3 hover:opacity-80"
+                    >
                         <div>
                             <CloudLightning />
                         </div>
+
                         <div>Start Studying</div>
-                    </Button>
+                    </Link>
                     <Button type="link" to="/auth" className="px-6 py-2">
                         <div className="flex items-center justify-center">
                             <BookOpen className="scale-[70%]" />
