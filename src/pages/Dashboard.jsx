@@ -38,7 +38,12 @@ const Dashboard = ({ user, userIsLoading }) => {
                 <div className="flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 mb-8">
                     <div>
                         <h1 className="text-3xl font-bold mb-2">
-                            Welcome {user.name?.split(" ")[0].toUpperCase()}👋🏾
+                            Welcome{" "}
+                            {user.name
+                                ?.split(" ")[0]
+                                .toLowerCase()
+                                .replace(/^./, (c) => c.toUpperCase())}
+                            🌱
                         </h1>
                         <p className="text-gray-800">
                             Ready to continue your learning journey?
