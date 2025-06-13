@@ -157,7 +157,7 @@ const LandingPage = function () {
                     </div>
                 </article>
             </section>
-            <footer className="mt-20 text-center m-auto text-gray-700 text-[17px] pb-10">
+            <footer className="mt-20 text-center m-auto text-gray-700 text-[17px] p-5 bg-white rounded-2xl w-full items justify-center ">
                 &copy;2025 StudyAI. Made with ❤️ for students worldwide.
             </footer>
         </div>
