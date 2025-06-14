@@ -43,7 +43,7 @@ const Dashboard = ({ user, userIsLoading }) => {
                                 ?.split(" ")[0]
                                 .toLowerCase()
                                 .replace(/^./, (c) => c.toUpperCase())}
-                            🌱
+                            !💡
                         </h1>
                         <p className="text-gray-800">
                             Ready to continue your learning journey?
